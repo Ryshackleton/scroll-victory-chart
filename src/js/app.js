@@ -1,50 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import MultiLineChart from './components/MultiLineChart/MultiLineChart'
-
-const data2012 = [
-  {quarter: 1, earnings: 13000},
-  {quarter: 2, earnings: 16500},
-  {quarter: 3, earnings: 14250},
-  {quarter: 4, earnings: 19000}
-];
-
-const data2013 = [
-  {quarter: 1, earnings: 15000},
-  {quarter: 2, earnings: 12500},
-  {quarter: 3, earnings: 19500},
-  {quarter: 4, earnings: 13000}
-];
-
-const data2014 = [
-  {quarter: 1, earnings: 11500},
-  {quarter: 2, earnings: 13250},
-  {quarter: 3, earnings: 20000},
-  {quarter: 4, earnings: 15500}
-];
-
-const data2015 = [
-  {quarter: 1, earnings: 18000},
-  {quarter: 2, earnings: 13250},
-  {quarter: 3, earnings: 15000},
-  {quarter: 4, earnings: 12000}
-];
-
-const series =
-  [
-    {year: 2012, vals: data2012},
-    {year: 2013, vals: data2013},
-    {year: 2014, vals: data2014},
-    {year: 2015, vals: data2015},
-  ];
+import * as d3promise from 'd3.promise'
 
 class Main extends React.Component {
   render() {
+    const {
+      data,
+    } = this.props;
     return (
       <div>
-        <h1>Victory Tutorial</h1>
+        <h1>Victory Chart With Scrolling</h1>
         <MultiLineChart
-          data={series}
+          data={data}
+          xAccessor={"year_id"}
+          yAccessor={"cf_final"}
+          keyAccessor={"year_id"}
+          labelX={"Year"}
+          labelY={"Cause Specific Mortality Fraction (%)"}
         />
       </div>
     );
@@ -52,4 +25,37 @@ class Main extends React.Component {
 }
 
 const app = document.getElementById('app');
-ReactDOM.render(<Main />, app);
+
+var promise = d3promise.csv('data/COD_public_USA_opioid_cause_male_female.csv');
+promise.then((data) => {
+  const filtered = modelData(data)
+  ReactDOM.render(<Main data={filtered} />, app);
+  },
+  (error) => error.log('error reading csv data')
+);
+
+const modelData = (data) => {
+  const malesAllAges = data
+    .filter(
+      (d) => +d['age_group_id'] === 22
+        && +d['sex_id'] === 1
+    )
+    .map((d) => {
+      d.cf_final = +d.cf_final
+      d.year_id = +d.year_id
+      return d
+    })
+  const femalesAllAges = data
+    .filter(
+      (d) => +d.age_group_id === 22
+        && +d.sex_id === 2
+    )
+    .map((d) => {
+      d.cf_final = +d.cf_final
+      d.year_id = +d.year_id
+      return d
+    })
+  return [ malesAllAges, femalesAllAges ]
+}
+
+
