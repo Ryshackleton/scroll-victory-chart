@@ -17,14 +17,16 @@ export default {
   },
   axisX: {
     axis: {stroke: 'black', strokeWidth: AXES_STROKE},
-    axisLabel: {fontSize: 20, padding: 20},
+    axisLabel: {fontSize: 12, padding: 20},
     grid: dottedGrid,
     ticks: ticks, 
     tickLabels: {fontSize: 10, padding: 5}
   },
+  axisXLabel: {
+  },
   axisY: {
     axis: {stroke: 'black', strokeWidth: AXES_STROKE, },
-    axisLabel: {fontSize: 20, padding: 20},
+    axisLabel: {fontSize: 12, padding: 30},
     grid: dottedGrid,
     ticks: ticks, 
     tickLabels: {fontSize: 10, padding: 5}
@@ -42,5 +44,10 @@ export default {
       strokeDasharray: '5,8',
       strokeLinecap: 'round',
     },
+  },
+  scatterDots: {
+    data: {
+      strokeWidth: 1,
+    }
   }
 }
