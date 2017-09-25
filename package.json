@@ -1,7 +1,7 @@
 {
-  "name": "victory-tutorial",
-  "version": "1.0.0",
-  "description": "A tutorial for Victory used with the Getting Started guide in Victory Docs.",
+  "name": "scroll-victory-chart",
+  "version": "0.0.1",
+  "description": "A victory line chart triggered by scrolling",
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FormidableLabs/victory-tutorial.git"
+    "url": "git+https://github.com/Ryshackleton/scroll-victory-chart.git"
   },
-  "author": "emma.brillhart@formidable.com",
+  "author": "ryshack@uw.edu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FormidableLabs/victory-tutorial/issues"
+    "url": "https://github.com/Ryshackleton/scroll-victory-chart/issues"
   },
-  "homepage": "https://github.com/FormidableLabs/victory-tutorial#readme",
+  "homepage": "https://github.com/Ryshackleton/scroll-victory-chart",
   "devDependencies": {
     "babel-core": "^6.13.2",
     "babel-loader": "^7.1.2",
@@ -29,7 +29,8 @@
     "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
-    "d3": "^4.10.2",
+    "copy-webpack-plugin": "^4.0.1",
+    "d3.promise": "^2.0.0",
     "radium": "^0.19.4",
     "react-scroll-trigger": "^0.1.4",
     "victory": "^0.22.2"
