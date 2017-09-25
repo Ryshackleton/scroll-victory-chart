@@ -4,8 +4,9 @@ logs
 *.log
 npm-debug.log*
 
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-dist/bundle.js
+# Compiled javascript
+dist/bundle.js 
+dist/data
 
 # intellij
 .idea
