@@ -1,6 +1,7 @@
-var path = require('path');
-var srcPath = path.join(__dirname, 'src');
-var buildPath = path.join(__dirname, 'dist');
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const srcPath = path.join(__dirname, 'src');
+const buildPath = path.join(__dirname, 'dist');
 
 module.exports = {
   devtool: 'source-map',
@@ -10,6 +11,14 @@ module.exports = {
       path: buildPath,
       filename: "bundle.js"
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, 'data'),
+        to: path.join(buildPath, 'data'),
+      },
+    ])
+  ],
   module: {
       loaders: [
           {
