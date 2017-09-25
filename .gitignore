@@ -6,7 +6,7 @@ npm-debug.log*
 
 # Compiled javascript
 dist/bundle.js 
-dist/data
+data/
 
 # intellij
 .idea
