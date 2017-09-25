@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "radium": "^0.19.4",
+    "react-scroll-trigger": "^0.1.4",
     "victory": "^0.22.2"
   }
 }
