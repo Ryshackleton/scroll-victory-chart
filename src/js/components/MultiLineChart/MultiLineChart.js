@@ -1,67 +1,71 @@
 import React from 'react'
-import { VictoryLine, VictoryChart, VictoryAxis, VictoryScatter, VictoryGroup, VictoryLabel } from 'victory'
+import { VictoryLine, VictoryChart, VictoryAxis, VictoryScatter, VictoryGroup, VictoryStack, VictoryArea, VictoryLabel } from 'victory'
 import  styles from './MultiLineStyle'
 
 class MultiLineChart extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      dataAll: props.data,
+      opacity: 0,
+    }
+  }
+
   render() {
     const {
-      data,
       xAccessor,
       yAccessor,
       keyAccessor,
       labelX,
       labelY,
+      colorScale = ["red", "blue", "green", "yellow"],
+      animate
     } = this.props
-    data.map((d) => (
-    console.log(d)
-    ))
-
     return (
-      <div style={styles.base}
+      <div style={ {...styles.base, ...{opacity: this.state.opacity} }}
            >
       <VictoryChart
-        domainPadding={10}
+        domainPadding={0}
         legend={true}
+        animate={animate}
       >
-        <VictoryAxis
-          style={styles.axisX}
-          label={labelX}
-          tickCount={10}
-          tickFormat={(x) => (`${x}`)}
-        />
         <VictoryAxis
           style={styles.axisY}
           label={labelY}
           dependentAxis
-          tickFormat={(y) => (`${y * 100}%`)}
+          tickFormat={(y) => (`${y / 1000}K`)}
         />
-        <VictoryGroup
-          colorScale={["red", "blue", "green", "yellow"]}
+        <VictoryStack
+          colorScale={colorScale}
         >
           {
-            data.map((d) => (
-              <VictoryLine
+            this.state.dataAll.map((d) => (
+              <VictoryArea
                 data={d}
-                style={+d[0].sex_id === 1 ? styles.lineSolid : styles.lineDotted }
+                style={styles.lineSolid }
                 key={keyAccessor}
                 x={xAccessor}
                 y={yAccessor}
+                animate={animate}
                 />
               )
             )
           }
-        </VictoryGroup>
-        <VictoryGroup
-          colorScale={["red", "blue", "green", "yellow"]}
+        </VictoryStack>
+        <VictoryStack
+          colorScale={colorScale}
         >
           {
-            data.map((d) => (
+            this.state.dataAll.map((d) => (
                 <VictoryScatter
                   data={[d[d.length-1]]}
                   style={styles.scatterDots}
                   size={3}
-                  labels={(d) => d.sex }
-                  labelComponent={<VictoryLabel dx={25} dy={14}/>}
+                  labels={(d) => d.series_label }
+                  labelComponent={
+                    <VictoryLabel dx={-75}
+                                  dy={75}/>
+                  }
                   key={keyAccessor}
                   x={xAccessor}
                   y={yAccessor}
@@ -69,7 +73,13 @@ class MultiLineChart extends React.Component {
               )
             )
           }
-        </VictoryGroup>
+        </VictoryStack>
+        <VictoryAxis
+          style={styles.axisX}
+          label={labelX}
+          tickCount={10}
+          tickFormat={(x) => (`${x}`)}
+        />
       </VictoryChart>
         </div>
     )

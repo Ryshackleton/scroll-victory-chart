@@ -7,18 +7,25 @@ const dottedGrid = {
   strokeDasharray: '2,2',
 };
 
+const noGrid = {
+  strokeOpacity: 0,
+};
+
 const ticks = {stroke: "gray", size: 2, strokeWidth: AXES_STROKE, };
 
 export default {
   base: {
-    height: '80vh',
-    width: '60vw',
-    marginLeft: 'auto',
+    position:'fixed',
+    // height: '80vh',
+    top: '30vh',
+    right: '2vw',
+    border: "1px solid #ccc",
+    width: '50vw',
   },
   axisX: {
     axis: {stroke: 'black', strokeWidth: AXES_STROKE},
     axisLabel: {fontSize: 12, padding: 20},
-    grid: dottedGrid,
+    grid: noGrid,
     ticks: ticks, 
     tickLabels: {fontSize: 10, padding: 5}
   },
